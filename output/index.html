@@ -21,159 +21,171 @@
   <h1 id="onett-systematic-knowledge-graph-generation-for-national-access-points">ONETT: Systematic Knowledge Graph Generation for National Access Points</h1>
 
   <ul id="authors">
-    <li><a href="https://infotics.es/" typeof="http://xmlns.com/foaf/0.1/Person" resource="https://infotics.es/">Adolfo Antón-Bravo</a></li>
-    <li><a href="" typeof="http://xmlns.com/foaf/0.1/Person" resource="">Jhon Toledo</a></li>
-    <li><a href="https://dchaves.oeg-upm.net/" typeof="http://xmlns.com/foaf/0.1/Person" resource="https://dchaves.oeg-upm.net/">David Chaves-Fraga</a></li>
-    <li><a href="http://www.oeg-upm.net/index.php/es/teachers/11-ocorcho/" typeof="http://xmlns.com/foaf/0.1/Person" resource="http://www.oeg-upm.net/index.php/es/teachers/11-ocorcho/">Oscar Corcho</a></li>
+    <li><a rev="lsc:participatesIn" property="foaf:maker schema:creator schema:author schema:publisher" href="https://infotics.es/" typeof="foaf:Person schema:Person" resource="https://infotics.es/">Adolfo Antón-Bravo</a></li>
+    <li><a rev="lsc:participatesIn" property="foaf:maker schema:creator schema:author schema:publisher" href="" typeof="foaf:Person schema:Person" resource="">Jhon Toledo</a></li>
+    <li><a rev="lsc:participatesIn" property="foaf:maker schema:creator schema:author schema:publisher" href="https://dchaves.oeg-upm.net/" typeof="foaf:Person schema:Person" resource="https://dchaves.oeg-upm.net/">David Chaves-Fraga</a></li>
+    <li><a rev="lsc:participatesIn" property="foaf:maker schema:creator schema:author schema:publisher" href="http://www.oeg-upm.net/index.php/es/teachers/11-ocorcho/" typeof="foaf:Person schema:Person" resource="http://www.oeg-upm.net/index.php/es/teachers/11-ocorcho/">Oscar Corcho</a></li>
   </ul>
 
   <ul id="affiliations">
     <li id="myaffiliation">Ontology Engineering Group, Universidad Politécnica de Madrid, Spain.</li>
   </ul>
 
-  <section id="abstract">
-    <h2>Abstract</h2>
-    <p>In this paper, we describe our implemented approach for the usage and exploitation of declarative mappings for the publication of open transport data from transport authorities and operators into an ontology based on TransModel. This will allow a homogeneous representation of transport data across EU transport-related organisations and will minimise the need to understand ad-hoc heterogeneous representation formats for transport data as currently published by them. We will show how we are creating and using RML mappings for the specific case of transforming GTFS data into a TransModel-based ontology. In the future, such data may be further transformed into other formats such as NeTEx. The HTML online version of the paper can be found at: <a href="https://osoc-es.github.io/onett-paper/output/">https:/​/​osoc-es.github.io/onett-paper/output/</a></p>
-  </section>
+  <section id="abstract" inlist="" rel="schema:hasPart" resource="#abstract">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Abstract</h2>
+      <p>In this paper, we describe our implemented approach for the usage and exploitation of declarative mappings for the publication of open transport data from transport authorities and operators into an ontology based on TransModel. This will allow a homogeneous representation of transport data across EU transport-related organisations and will minimise the need to understand ad-hoc heterogeneous representation formats for transport data as currently published by them. We will show how we are creating and using RML mappings for the specific case of transforming GTFS data into a TransModel-based ontology. In the future, such data may be further transformed into other formats such as NeTEx. The HTML online version of the paper can be found at: <a href="https://osoc-es.github.io/onett-paper/output/">https:/​/​osoc-es.github.io/onett-paper/output/</a></p>
+    </div>
+</section>
 
 </header>
 
 <main>
   <!-- Add sections by specifying their file name, excluding the '.md' suffix. -->
-  <section id="introduction">
-    <h2>Introduction</h2>
+  <section id="introduction" inlist="" rel="schema:hasPart" resource="#introduction">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Introduction</h2>
 
-    <p>Transport data is being currently published by transport authorities and operators in many different formats, some of which are well-known de-facto standards, such as the General Transit Feed Specification or GTFS, and some others are ad-hoc data formats whose structure is decided by the data publisher (e.g., current datasets and APIs published by <a href="https://opendata.emtmadrid.es/">Empresa Municipal de Transportes de Madrid in its open data portal</a>, <a href="https://www.zaragoza.es/sede/servicio/catalogo/327">tram information in Zaragoza</a>, etc.).</p>
+      <p>Transport data is being currently published by transport authorities and operators in many different formats, some of which are well-known de-facto standards, such as the General Transit Feed Specification or GTFS, and some others are ad-hoc data formats whose structure is decided by the data publisher (e.g., current datasets and APIs published by <a href="https://opendata.emtmadrid.es/">Empresa Municipal de Transportes de Madrid in its open data portal</a>, <a href="https://www.zaragoza.es/sede/servicio/catalogo/327">tram information in Zaragoza</a>, etc.).</p>
 
-    <p>All of these datasets have similarities, associated to the fact that they are describing overlapping sets of information (schedules, stops, vehicles, lines, etc.). They are also made available, commonly, using tabular data formats. For example, GTFS feeds are essentially zip-compressed files containing sets of CSV files following the GTFS specification. And other data sources such as those mentioned above as examples provide the data either in CSV or JSON.</p>
+      <p>All of these datasets have similarities, associated to the fact that they are describing overlapping sets of information (schedules, stops, vehicles, lines, etc.). They are also made available, commonly, using tabular data formats. For example, GTFS feeds are essentially zip-compressed files containing sets of CSV files following the GTFS specification. And other data sources such as those mentioned above as examples provide the data either in CSV or JSON.</p>
 
-    <p>Having all this data available in a homogeneous manner would actually reduce the total cost of reusing data sources, especially across operators/authorities and cities/regions. That is, developers may be able to develop one application that would be deployable in any city in the world with minor adaptations. This is already happening with GTFS, which is not only being used by Google Maps to provide data about transport infrastructure, but also for route planning, but also by other route planners, such as Navita.io and OpenTripPlanner.</p>
+      <p>Having all this data available in a homogeneous manner would actually reduce the total cost of reusing data sources, especially across operators/authorities and cities/regions. That is, developers may be able to develop one application that would be deployable in any city in the world with minor adaptations. This is already happening with GTFS, which is not only being used by Google Maps to provide data about transport infrastructure, but also for route planning, but also by other route planners, such as Navita.io and OpenTripPlanner.</p>
 
-    <p>To achieve this homogeneity, there are several options that may be followed:</p>
+      <p>To achieve this homogeneity, there are several options that may be followed:</p>
 
-    <ul>
-      <li>Transport authorities and operators may agree on using the same data format and hence publish according to such data format. They know well the type of data that they handle, the quality properties on such data, etc., so they should be able to provide this data easily. To some extent, this is what is happening currently with GTFS, and what should happen in the near future in the European Union with NeTex, according to directive 2010/40/EU and regulation 2017/1926 (MMTIS).</li>
-      <li>3rd parties (as well as operators and authorities themselves) may be able to create transformation rules that allow transforming the original data sources into other generally-agreed formats, republishing such transformed data either in the original data portals, if allowed to do so, or in other servers. Transformations may be done programmatically (that is, with ad-hoc code) or declaratively (using mappings in existing languages like R2RML <span class="references">[<a href="#ref-1">1</a>]</span> or RML <span class="references">[<a href="#ref-2">2</a>]</span>).</li>
-    </ul>
+      <ul>
+        <li>Transport authorities and operators may agree on using the same data format and hence publish according to such data format. They know well the type of data that they handle, the quality properties on such data, etc., so they should be able to provide this data easily. To some extent, this is what is happening currently with GTFS, and what should happen in the near future in the European Union with NeTex, according to directive 2010/40/EU and regulation 2017/1926 (MMTIS).</li>
+        <li>3rd parties (as well as operators and authorities themselves) may be able to create transformation rules that allow transforming the original data sources into other generally-agreed formats, republishing such transformed data either in the original data portals, if allowed to do so, or in other servers. Transformations may be done programmatically (that is, with ad-hoc code) or declaratively (using mappings in existing languages like R2RML <span class="references">[<a href="#ref-1">1</a>]</span> or RML <span class="references">[<a href="#ref-2">2</a>]</span>).</li>
+      </ul>
 
-    <p>In this paper, we present our work on ensuring that declarative mappings can be used for the purpose of transforming transport data published by transport authorities and operators into a homogeneous representation based on Transmodel (the reference data model for public transport at European level, which will be further described in section 2). This data can then be further transformed into NeTEx so as to comply with the EU regulations for the publication of transport-related data in National Access Points.</p>
+      <p>In this paper, we present our work on ensuring that declarative mappings can be used for the purpose of transforming transport data published by transport authorities and operators into a homogeneous representation based on Transmodel (the reference data model for public transport at European level, which will be further described in section 2). This data can then be further transformed into NeTEx so as to comply with the EU regulations for the publication of transport-related data in National Access Points.</p>
 
-  </section>
+    </div>
+</section>
 
-  <section id="onett">
-    <h2>Transmodel Ontology and GTFS</h2>
+  <section id="onett" inlist="" rel="schema:hasPart" resource="#onett">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Transmodel Ontology and GTFS</h2>
 
-    <p>In its drive to foster interoperability across Europe, the EU is requiring each Member State to allow access to transportation data via a National Access Point (NAP). According to the EU Regulation 2017/1926, all transportation authorities, transport operators and infrastructure managers must provide static and dynamic data in specific data formats (e.g., NeTEx, SIRI).
+      <p>In its drive to foster interoperability across Europe, the EU is requiring each Member State to allow access to transportation data via a National Access Point (NAP). According to the EU Regulation 2017/1926, all transportation authorities, transport operators and infrastructure managers must provide static and dynamic data in specific data formats (e.g., NeTEx, SIRI).
 - the EU Regulation applies to different transportation modes, including air, train, road vehicle, bus, ferry, metro, tram, shuttlebus, car-sharing, car-pooling and bike-sharing.</p>
 
-    <p>Transmodel is the European Reference Data Model for Public Transport. It provides a conceptual model of common public transport concepts and data structures that can be used to build many different kinds of public transport information system such as timetabling, fares, operational management, real-time data, journey planning. It is divided into eight different sections or  Parts: Common Concepts (CC), Public Transport Network Topology (NT), Network Description (ND), Operations Monitoring &amp; Control (OM), Fare Management (FM), Passenger Information (PI), Driver Management (DM), Management Information &amp; Statistics (MI).</p>
+      <p>Transmodel is the European Reference Data Model for Public Transport. It provides a conceptual model of common public transport concepts and data structures that can be used to build many different kinds of public transport information system such as timetabling, fares, operational management, real-time data, journey planning. It is divided into eight different sections or  Parts: Common Concepts (CC), Public Transport Network Topology (NT), Network Description (ND), Operations Monitoring &amp; Control (OM), Fare Management (FM), Passenger Information (PI), Driver Management (DM), Management Information &amp; Statistics (MI).</p>
 
-    <p>These parts or sections are usually developed by different standards or specific data formats. One of the most relevant implementations is NeTEx, which covers partially some features of the parts CC, NT, ND, FM and PI. NeTEx releases the 2017/1926 EU Regulation (May 2017) where the European Commission recognized NeTEx as a strategic standard for the cross-border exchange of data. The first step must be taken before December 2019 when every European country must provide data available in NeTEx format at National Access Points to allow  EU-wide multi-modal travel information services.</p>
+      <p>These parts or sections are usually developed by different standards or specific data formats. One of the most relevant implementations is NeTEx, which covers partially some features of the parts CC, NT, ND, FM and PI. NeTEx releases the 2017/1926 EU Regulation (May 2017) where the European Commission recognized NeTEx as a strategic standard for the cross-border exchange of data. The first step must be taken before December 2019 when every European country must provide data available in NeTEx format at National Access Points to allow  EU-wide multi-modal travel information services.</p>
 
-    <p>The General Transit Feed Specification (GTFS) is a de-facto standard for representing public transport data, a collection of at least five required, two optional required and up to fifteen CSV files (with extension .txt and preferably encoded as UTF-8) contained within a .zip file to describe a transit scheduled operations system. The aim of GTFS is providing at least trip-planning functionality.  It defines the headers and a set of rules that must be taken into account when the dataset is created. Each file, as well as its headers, can be mandatory or optional and they have relations among them. The specification supports the representation of several public transport features such as trips, routes, stops, times, fares or calendar.</p>
+      <p>The General Transit Feed Specification (GTFS) is a de-facto standard for representing public transport data, a collection of at least five required, two optional required and up to fifteen CSV files (with extension .txt and preferably encoded as UTF-8) contained within a .zip file to describe a transit scheduled operations system. The aim of GTFS is providing at least trip-planning functionality.  It defines the headers and a set of rules that must be taken into account when the dataset is created. Each file, as well as its headers, can be mandatory or optional and they have relations among them. The specification supports the representation of several public transport features such as trips, routes, stops, times, fares or calendar.</p>
 
-    <p>In order to provide a better GTFS to NeTEx conversion and further full data interoperability, we have started to build up a Transmodel Ontology. The development is released in a <a href="https://github.com/oeg-upm/transmodel-ontology">github repository</a> where every material generated in the different activities carried out during the development of the vocabulary, as for instance use cases, user stories, glossary of terms, etc., will be available in the Vocabulary Wiki Project maintenance. Eventually, some queries will be performed in a SPARQL endpoint to test and exemplify its operability. Furthermore, in the context of work in a CEN Transmodel working group has published a base <a href="https://w3id.org/transmodel/terms#">URI</a> that is used by ONETT to perform the transformations. Before performing the transformation from GTFS to the ontology based format of Transmodel, we analyse the relationship between the two standards. For example, in <a href="#comparison">Table 1</a> we show the relation between the properties of the calendar.txt in the GTFS model with the corresponding property in Transmodel using the NeTEx implementation. The full relation between the two standards is available <a href="https://github.com/osoc-es/onett-paper/tree/master/Gtfs2Transmodel">online</a>.</p>
+      <p>In order to provide a better GTFS to NeTEx conversion and further full data interoperability, we have started to build up a Transmodel Ontology. The development is released in a <a href="https://github.com/oeg-upm/transmodel-ontology">github repository</a> where every material generated in the different activities carried out during the development of the vocabulary, as for instance use cases, user stories, glossary of terms, etc., will be available in the Vocabulary Wiki Project maintenance. Eventually, some queries will be performed in a SPARQL endpoint to test and exemplify its operability. Furthermore, in the context of work in a CEN Transmodel working group has published a base <a href="https://w3id.org/transmodel/terms#">URI</a> that is used by ONETT to perform the transformations. Before performing the transformation from GTFS to the ontology based format of Transmodel, we analyse the relationship between the two standards. For example, in <a href="#comparison">Table 1</a> we show the relation between the properties of the calendar.txt in the GTFS model with the corresponding property in Transmodel using the NeTEx implementation. The full relation between the two standards is available <a href="https://github.com/osoc-es/onett-paper/tree/master/Gtfs2Transmodel">online</a>.</p>
 
-    <figure id="comparison" class="table">
+      <figure id="comparison" class="table">
 
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align: center">GTFS-Calendar</th>
-            <th style="text-align: center">Transmodel (NeTEx)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="text-align: center">service_id</td>
-            <td style="text-align: center">&lt;DayType&gt;@id + &lt;ServiceCalendarFrame&gt; @id</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">moday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;monday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">tuesday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;tuesday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">wednesday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;wednesday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">thursday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;thursday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">friday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;friday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">saturday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;saturday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">sunday</td>
-            <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;sunday</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">start_date</td>
-            <td style="text-align: center">&lt;ServiceCalendar&gt;&lt;FromDate&gt;</td>
-          </tr>
-          <tr>
-            <td style="text-align: center">end_date</td>
-            <td style="text-align: center">&lt;ServiceCalendar&gt;&lt;ToDate&gt;</td>
-          </tr>
-        </tbody>
-      </table>
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align: center">GTFS-Calendar</th>
+              <th style="text-align: center">Transmodel (NeTEx)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center">service_id</td>
+              <td style="text-align: center">&lt;DayType&gt;@id + &lt;ServiceCalendarFrame&gt; @id</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">moday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;monday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">tuesday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;tuesday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">wednesday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;wednesday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">thursday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;thursday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">friday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;friday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">saturday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;saturday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">sunday</td>
+              <td style="text-align: center">&lt;DayType&gt;&lt;properties&gt;&lt;PropertyOfDay&gt;&lt;DaysOfWeek&gt;sunday</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">start_date</td>
+              <td style="text-align: center">&lt;ServiceCalendar&gt;&lt;FromDate&gt;</td>
+            </tr>
+            <tr>
+              <td style="text-align: center">end_date</td>
+              <td style="text-align: center">&lt;ServiceCalendar&gt;&lt;ToDate&gt;</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <figcaption>
-        <p><span class="label">Table 1:</span> Relation among GTFS-Calendar properties and Transmodel in NeTEx implementation</p>
-      </figcaption>
-    </figure>
+        <figcaption>
+          <p><span class="label">Table 1:</span> Relation among GTFS-Calendar properties and Transmodel in NeTEx implementation</p>
+        </figcaption>
+      </figure>
 
-  </section>
+    </div>
+</section>
 
-  <section id="demonstration">
-    <h2>The ONETT demo</h2>
+  <section id="demonstration" inlist="" rel="schema:hasPart" resource="#demonstration">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">The ONETT demo</h2>
 
-    <p>The <a href="https://osoc-es.github.io/onett/">Open NEtwork of public Transport application (ONETT)</a> uses Semantic Web technologies to perform a knowledge graph generation in the transport domain. More in detail, ONETT applies the concept of Ontology Based Data Access (OBDA) <span class="references">[<a href="#ref-3">3</a>]</span>, which it aims at providing a unified view and common access to a set of data sources, using ontologies and mappings.</p>
+      <p>The <a href="https://osoc-es.github.io/onett/">Open NEtwork of public Transport application (ONETT)</a> uses Semantic Web technologies to perform a knowledge graph generation in the transport domain. More in detail, ONETT applies the concept of Ontology Based Data Access (OBDA) <span class="references">[<a href="#ref-3">3</a>]</span>, which it aims at providing a unified view and common access to a set of data sources, using ontologies and mappings.</p>
 
-    <p>In this specific case, we generate a <a href="https://github.com/osoc-es/onett-back/blob/master/mapping/mapping/mapping.gtfs2trnasmodel.yml">general mapping between GTFS</a> and ontology based Transmodel using the RML specification in its YARRRML <span class="references">[<a href="#ref-4">4</a>]</span> serialization. For transforming the raw data in CSV to RDF ONETT integrates the <a href="https://github.com/SDM-TIB/SDM-RDFizer">SDM-RDFizer</a> engine for RML mappings. Before running the transformation, we have to perform a mapping translation <span class="references">[<a href="#ref-5">5</a>]</span> process to adapt the general mapping to the input data as it is not always going have the same structure and number of files. The workflow of the application is shown in <a href="#onett-workflow">Fig. 1</a>. More in detail, the steps following by ONETT for generating the desirable RDF knowledge graph based on the Transmodel ontology from a GTFS feed are:</p>
+      <p>In this specific case, we generate a <a href="https://github.com/osoc-es/onett-back/blob/master/mapping/mapping/mapping.gtfs2trnasmodel.yml">general mapping between GTFS</a> and ontology based Transmodel using the RML specification in its YARRRML <span class="references">[<a href="#ref-4">4</a>]</span> serialization. For transforming the raw data in CSV to RDF ONETT integrates the <a href="https://github.com/SDM-TIB/SDM-RDFizer">SDM-RDFizer</a> engine for RML mappings. Before running the transformation, we have to perform a mapping translation <span class="references">[<a href="#ref-5">5</a>]</span> process to adapt the general mapping to the input data as it is not always going have the same structure and number of files. The workflow of the application is shown in <a href="#onett-workflow">Fig. 1</a>. More in detail, the steps following by ONETT for generating the desirable RDF knowledge graph based on the Transmodel ontology from a GTFS feed are:</p>
 
-    <ol>
-      <li>Analyse the input data: It decompresses and analyses the input GTFS feed to know the files and the structure of each file (headers).</li>
-      <li>Mapping translation: It takes the general GTFS YARRRML mapping that represents  the full specification and generates a new mapping corresponding to the input data.</li>
-      <li>Knowledge Graph Generation: It runs the SDM-RDFizer engine to transform the raw data to RDF.</li>
-    </ol>
+      <ol>
+        <li>Analyse the input data: It decompresses and analyses the input GTFS feed to know the files and the structure of each file (headers).</li>
+        <li>Mapping translation: It takes the general GTFS YARRRML mapping that represents  the full specification and generates a new mapping corresponding to the input data.</li>
+        <li>Knowledge Graph Generation: It runs the SDM-RDFizer engine to transform the raw data to RDF.</li>
+      </ol>
 
-    <figure id="onett-workflow">
+      <figure id="onett-workflow">
 <img src="images/workflow.jpg" alt="[ONETT workflow]" class="figure-narrow" />
 <figcaption>
-        <p><span class="label">Fig. 1:</span> The ONETT workflow for the systematic generation of Knowledge Graph following Transmodel from GTFS feeds.</p>
-      </figcaption>
+          <p><span class="label">Fig. 1:</span> The ONETT workflow for the systematic generation of Knowledge Graph following Transmodel from GTFS feeds.</p>
+        </figcaption>
 </figure>
 
-    <p>These steps are a black box for the transport authorities that want to obtain the knowledge graph from their GTFS feeds. Using the web application the user only has to upload the compressed feed or provide a URL and automatically ONETT generates the corresponding knowledge graph. With this approach, we provide a useful tool to generate National Access Point complaint data from a de-facto standard and very popular data format in a systematic manner.</p>
+      <p>These steps are a black box for the transport authorities that want to obtain the knowledge graph from their GTFS feeds. Using the web application the user only has to upload the compressed feed or provide a URL and automatically ONETT generates the corresponding knowledge graph. With this approach, we provide a useful tool to generate National Access Point complaint data from a de-facto standard and very popular data format in a systematic manner.</p>
 
-  </section>
+    </div>
+</section>
 
-  <section id="conclusions">
-    <h2>Conclusions and Future Work</h2>
-    <p>The availability of homogeneous transport data from worldwide transport authorities and operators gives us the possibility of creating new types of applications related to transport (trip planners, fare calculators, ticket recommenders, etc.) that can be deployed easily in different regions or cities. In this paper, we have shown our approach to create such homogeneous transport data based on declarative mappings that can be used to generate transport knowledge graphs for any region or city in the world that is currently publishing data in GTFS. The mappings allow transforming GTFS data into RDF according to a TransModel-based ontology. Such data can be queried in a homogeneous manner so that the aforementioned applications can be created more easily.</p>
-  </section>
+  <section id="conclusions" inlist="" rel="schema:hasPart" resource="#conclusions">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Conclusions and Future Work</h2>
+      <p>The availability of homogeneous transport data from worldwide transport authorities and operators gives us the possibility of creating new types of applications related to transport (trip planners, fare calculators, ticket recommenders, etc.) that can be deployed easily in different regions or cities. In this paper, we have shown our approach to create such homogeneous transport data based on declarative mappings that can be used to generate transport knowledge graphs for any region or city in the world that is currently publishing data in GTFS. The mappings allow transforming GTFS data into RDF according to a TransModel-based ontology. Such data can be queried in a homogeneous manner so that the aforementioned applications can be created more easily.</p>
+    </div>
+</section>
 
   
 </main>
 
 <footer>
-	<section id="acknowledgements">
-    <h2>Acknowledgements</h2>
-    <p>This work is partially supported by the EIT European project SNAP and by the Spanish Ministerio de Economía, Industria y Competitividad and EU FEDER funds under the DATOS 4.0: RETOS Y SOLUCIONES - UPM Spanish national project (TIN2016-78011-C4-4-R) and by an FPI grant (BES-2017-082511). Thank you to our <a href="https://summerofcode.es/">open Summer of code 2019</a> students: Luis Pozo, Pablo Castellanos, Marta Retana.</p>
-  </section>
+	<section id="acknowledgements" inlist="" rel="schema:hasPart" resource="#acknowledgements">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Acknowledgements</h2>
+      <p>This work is partially supported by the EIT European project SNAP and by the Spanish Ministerio de Economía, Industria y Competitividad and EU FEDER funds under the DATOS 4.0: RETOS Y SOLUCIONES - UPM Spanish national project (TIN2016-78011-C4-4-R) and by an FPI grant (BES-2017-082511). Thank you to our <a href="https://summerofcode.es/">open Summer of code 2019</a> students: Luis Pozo, Pablo Castellanos, Marta Retana.</p>
+    </div>
+</section>
 
-<section id="references">
-<h2>References</h2>
+<section>
+<h2 id="references">References</h2>
 <dl class="references">
   <dt id="ref-1">[1]</dt>
   <dd resource="#das2012r2rml" typeof="schema:Article">Das, S., Sundara, S., Cyganiak, R.: R2RML: RDB to RDF Mapping Language, W3C Recommendation 27 September 2012. www.w3.org/TR/r2rml. (2012).</dd>
